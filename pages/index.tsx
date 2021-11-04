@@ -3,7 +3,6 @@ import prisma from "../lib/prisma";
 import Head from "next/head";
 import Link from "next/link";
 
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import User, { UserProps } from "../components/User";
 import Layout from "../components/Layout";
