@@ -21,7 +21,7 @@ const Home: React.FC<Props> = (props) => {
         <title>BelizeDevs</title>
         <meta
           name="description"
-          content="Discover Belizean software developers"
+          content="Discover software developers from across Belize"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -33,7 +33,7 @@ const Home: React.FC<Props> = (props) => {
 
         <p className={styles.description}>
           Discover <code className={styles.code}>software developers</code> from
-          throughout Belize
+          across Belize
         </p>
 
         <div className={styles.grid}>
