@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession, signIn } from "next-auth/client";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -86,7 +86,17 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/api/auth/signin">
-          <a data-active={isActive("/signup")}>Log in with GitHub</a>
+          {/* <a data-active={isActive("/signup")}>Log in with GitHub</a> */}
+          <a
+            data-active={isActive("/signup")}
+            href={`/api/auth/signin`}
+            onClick={(e) => {
+              e.preventDefault();
+              signIn();
+            }}
+          >
+            Sign in with GitHub
+          </a>
         </Link>
         <style jsx>{`
           a {

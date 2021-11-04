@@ -31,7 +31,7 @@ const Home: React.FC<Props> = (props) => {
 
         <main className={styles.main}>
           <h1 className={styles.title}>
-            Welcome to <Link href="/api/auth/signin">BelizeDevs!</Link>
+            Welcome to <Link href="/">BelizeDevs!</Link>
           </h1>
 
           <p className={styles.description}>
