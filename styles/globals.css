@@ -16,6 +16,11 @@ a {
   box-sizing: border-box;
 }
 
+.siteName {
+  display: flex !important;
+  align-items: center;
+}
+
 input[type="text"],
 textarea {
   width: 100%;

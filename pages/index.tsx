@@ -70,7 +70,7 @@ const Home = () => {
           </h1>
 
           <p className={styles.description}>
-            Discover <code className={styles.code}>software developers</code>{" "}
+            Discover <code className={styles.code}>Software Developers</code>{" "}
             from across Belize
           </p>
 
