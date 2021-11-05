@@ -109,6 +109,18 @@
   margin-left: 0.5rem;
 }
 
+.profileHeader {
+  background-color: #0070f3;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.profileContent {
+  padding: 20px;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

@@ -53,3 +53,7 @@ button[type="submit"] {
 .access-denied a {
   color: #0070f3;
 }
+
+.ReactModal__Content.ReactModal__Content--after-open {
+  padding: 0 !important;
+}

@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetStaticProps } from "next";
 import prisma from "../lib/prisma";
 import Head from "next/head";
 import Link from "next/link";
@@ -67,19 +67,27 @@ const Home: React.FC<Props> = (props) => {
       </div>
       {modalIsOpen && (
         <Modal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>
-          {user.image && <ProfilePic image={user.image} />}
+          <div className={styles.profileHeader}>
+            {user.image && (
+              <div style={{ marginRight: 20 }}>
+                <ProfilePic image={user.image} />
+              </div>
+            )}
 
-          <h4>{user.name}</h4>
-          <p>{user.about}</p>
+            <h4>{user.name}</h4>
+          </div>
+          <div className={styles.profileContent}>
+            <p>{user.about}</p>
 
-          <h4>Contact</h4>
-          <p>{user.email}</p>
-          <p>{user.contactNumber}</p>
+            <h4>Contact</h4>
+            <p>{user.email}</p>
+            <p>{user.contactNumber}</p>
 
-          <h4>Links</h4>
-          <p>{user.website}</p>
-          <p>{user.github}</p>
-          <p>{user.linkedin}</p>
+            <h4>Links</h4>
+            <p>{user.website}</p>
+            <p>{user.github}</p>
+            <p>{user.linkedin}</p>
+          </div>
         </Modal>
       )}
     </Layout>
