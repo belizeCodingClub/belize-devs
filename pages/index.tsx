@@ -5,6 +5,7 @@ import axios from "axios";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 import React, { useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
 
 import styles from "../styles/Home.module.css";
 import User, { UserProps } from "../components/User";
@@ -49,7 +50,6 @@ const Home = () => {
     setIsOpen(true);
   };
 
-  if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <div>Error! {JSON.stringify(error)}</div>;
 
   return (
@@ -74,8 +74,13 @@ const Home = () => {
             from across Belize
           </p>
 
+          {isLoading && (
+            <Loader type="Bars" color="#dddddd" height={70} width={70} />
+          )}
+
           <div className={styles.grid}>
-            {data &&
+            {!isLoading &&
+              data &&
               data.pages.map((page) => {
                 return (
                   <React.Fragment key={page.nextId ?? "lastPage"}>
@@ -91,15 +96,15 @@ const Home = () => {
                   </React.Fragment>
                 );
               })}
-
-            {isFetchingNextPage ? (
-              <div className="loading">Loading users...</div>
-            ) : null}
-
-            <span style={{ visibility: "hidden" }} ref={ref}>
-              intersection observer marker
-            </span>
           </div>
+          <br />
+          {isFetchingNextPage ? (
+            <Loader type="Bars" color="#dddddd" height={70} width={70} />
+          ) : null}
+
+          <span style={{ visibility: "hidden" }} ref={ref}>
+            intersection observer marker
+          </span>
         </main>
       </div>
       {modalIsOpen && (
