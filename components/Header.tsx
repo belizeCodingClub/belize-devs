@@ -143,7 +143,7 @@ const Header: React.FC = () => {
         <p>
           {session.user.name} ({session.user.email})
         </p>
-        <Link href="/create" passHref>
+        <Link href="/me" passHref>
           <button>
             <a>Edit profile</a>
           </button>
