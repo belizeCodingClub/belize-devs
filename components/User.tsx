@@ -23,7 +23,7 @@ const rgbDataURL = (r, g, b) =>
 
 const User: React.FC<{ user: UserProps }> = ({ user }) => {
   return (
-    <div>
+    <div className="profile">
       {user.image && (
         <Image
           src={user.image}
@@ -32,10 +32,11 @@ const User: React.FC<{ user: UserProps }> = ({ user }) => {
           alt={user.name}
           placeholder="blur"
           blurDataURL={rgbDataURL(164, 164, 164)}
+          className="avatar"
         />
       )}
-      <h2>{user.name}</h2>
-      <small>By {user.email}</small>
+      <h3>{user.name}</h3>
+      <small>{user.email}</small>
     </div>
   );
 };

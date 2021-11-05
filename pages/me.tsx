@@ -45,8 +45,6 @@ const Me: React.FC = () => {
     }
   };
 
-  console.log(session);
-
   return (
     <Layout>
       <main className={styles.main}>

@@ -37,3 +37,11 @@ button[type="submit"] {
   padding: 1rem 2rem;
   cursor: pointer;
 }
+
+.profile {
+  text-align: center;
+}
+
+.avatar {
+  border-radius: 50%;
+}
