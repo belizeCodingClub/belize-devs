@@ -2,6 +2,14 @@ import type { GetStaticProps } from "next";
 import prisma from "../lib/prisma";
 import Head from "next/head";
 import Link from "next/link";
+import {
+  Mail,
+  Smartphone,
+  Link as RfLink,
+  GitHub,
+  Linkedin,
+  Phone,
+} from "react-feather";
 
 import styles from "../styles/Home.module.css";
 import User, { UserProps } from "../components/User";
@@ -74,19 +82,34 @@ const Home: React.FC<Props> = (props) => {
               </div>
             )}
 
-            <h4>{user.name}</h4>
+            <h3>{user.name}</h3>
           </div>
           <div className={styles.profileContent}>
             <p>{user.about}</p>
 
             <h4>Contact</h4>
-            <p>{user.email}</p>
-            <p>{user.contactNumber}</p>
+            <div style={{ display: "flex", marginBottom: 12 }}>
+              <Mail size={18} style={{ marginRight: 4 }} />
+              {user.email}
+            </div>
+            <div style={{ display: "flex" }}>
+              <Phone size={18} style={{ marginRight: 4 }} />
+              {user.contactNumber}
+            </div>
 
             <h4>Links</h4>
-            <p>{user.website}</p>
-            <p>{user.github}</p>
-            <p>{user.linkedin}</p>
+            <div style={{ display: "flex" }}>
+              <RfLink size={18} style={{ marginRight: 4 }} />
+              {user.website}
+            </div>
+            <div style={{ display: "flex", margin: "12px 0" }}>
+              <GitHub size={18} style={{ marginRight: 4 }} />
+              {user.github}
+            </div>
+            <div style={{ display: "flex" }}>
+              <Linkedin size={18} style={{ marginRight: 4 }} />
+              {user.linkedin}
+            </div>
           </div>
         </Modal>
       )}
