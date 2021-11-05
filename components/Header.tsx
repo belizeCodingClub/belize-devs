@@ -12,8 +12,8 @@ const Header: React.FC = () => {
 
   let left = (
     <div className="left">
-      <Link href="/">
-        <a className="bold" data-active={isActive("/")}>
+      <Link href="/" passHref>
+        <a className="home" data-active={isActive("/")}>
           BelizeDevs
         </a>
       </Link>
@@ -29,7 +29,7 @@ const Header: React.FC = () => {
         }
 
         .left a[data-active="true"] {
-          color: gray;
+          color: var(--geist-foreground);
         }
 
         a + a {
@@ -44,8 +44,8 @@ const Header: React.FC = () => {
   if (loading) {
     left = (
       <div className="left">
-        <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
+        <Link href="/" passHref>
+          <a className="home" data-active={isActive("/")}>
             BelizeDevs
           </a>
         </Link>
