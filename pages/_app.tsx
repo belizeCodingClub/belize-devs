@@ -2,6 +2,9 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider } from "next-auth/client";
 import { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -25,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
       session={pageProps.session}
     >
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
       <Toaster />
     </Provider>
   );

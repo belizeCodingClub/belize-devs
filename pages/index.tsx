@@ -1,33 +1,56 @@
-import type { GetStaticProps } from "next";
-import prisma from "../lib/prisma";
 import Head from "next/head";
 import Link from "next/link";
 import { Mail, Link as RfLink, GitHub, Linkedin, Phone } from "react-feather";
+import axios from "axios";
+import { useInfiniteQuery } from "react-query";
+import { useInView } from "react-intersection-observer";
+import React, { useEffect, useState } from "react";
 
 import styles from "../styles/Home.module.css";
 import User, { UserProps } from "../components/User";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal";
-import { useState } from "react";
 import ProfilePic from "../components/ProfilePic";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const users = await prisma.user.findMany();
-  return { props: { users } };
-};
+const Home = () => {
+  const { ref, inView } = useInView();
 
-type Props = {
-  users: UserProps[];
-};
-
-const Home: React.FC<Props> = (props) => {
   const [user, setUser] = useState<UserProps>();
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  const {
+    isLoading,
+    isError,
+    data,
+    error,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(
+    "users",
+    async ({ pageParam = "" }) => {
+      await new Promise((res) => setTimeout(res, 1000));
+      const res = await axios.get("/api/user?cursor=" + pageParam);
+      return res.data;
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  );
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
 
   const setActiveUser = (user: UserProps) => {
     setUser(user);
     setIsOpen(true);
   };
+
+  if (isLoading) return <div className="loading">Loading...</div>;
+  if (isError) return <div>Error! {JSON.stringify(error)}</div>;
 
   return (
     <Layout>
@@ -52,19 +75,32 @@ const Home: React.FC<Props> = (props) => {
           </p>
 
           <div className={styles.grid}>
-            {props.users.map((user) => (
-              <div
-                className={styles.card}
-                key={user.id}
-                onClick={() => setActiveUser(user)}
-              >
-                <User user={user} />
-              </div>
-            ))}
+            {data &&
+              data.pages.map((page) => {
+                return (
+                  <React.Fragment key={page.nextId ?? "lastPage"}>
+                    {page.users.map((user: UserProps) => (
+                      <div
+                        className={styles.card}
+                        key={user.id}
+                        onClick={() => setActiveUser(user)}
+                      >
+                        <User user={user} />
+                      </div>
+                    ))}
+                  </React.Fragment>
+                );
+              })}
+
+            {isFetchingNextPage ? (
+              <div className="loading">Loading users...</div>
+            ) : null}
+
+            <span style={{ visibility: "hidden" }} ref={ref}>
+              intersection observer marker
+            </span>
           </div>
         </main>
-
-        <footer className={styles.footer}>Powered by Us</footer>
       </div>
       {modalIsOpen && (
         <Modal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>
