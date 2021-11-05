@@ -5,6 +5,7 @@ import styles from "../styles/Me.module.css";
 import { useSession } from "next-auth/client";
 import { Formik, FormikHelpers, Form, Field } from "formik";
 import toast from "react-hot-toast";
+import AccessDenied from "../components/AccessDenied";
 
 interface FormValues {
   about: string;
@@ -16,6 +17,8 @@ interface FormValues {
 
 const Me: React.FC = () => {
   const [session, loading] = useSession();
+
+  if (typeof window !== "undefined" && loading) return null;
 
   const initialValues: FormValues = {
     about: session ? session.user.about : "",
@@ -44,6 +47,14 @@ const Me: React.FC = () => {
       console.error(error);
     }
   };
+
+  if (!session) {
+    return (
+      <Layout>
+        <AccessDenied />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

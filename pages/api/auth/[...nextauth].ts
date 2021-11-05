@@ -22,4 +22,5 @@ const options = {
       return Promise.resolve(session);
     },
   },
+  theme: "light",
 };

@@ -45,3 +45,11 @@ button[type="submit"] {
 .avatar {
   border-radius: 50%;
 }
+
+.access-denied {
+  text-align: center;
+}
+
+.access-denied a {
+  color: #0070f3;
+}
