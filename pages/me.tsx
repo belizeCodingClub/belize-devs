@@ -2,53 +2,66 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Router from "next/router";
 import styles from "../styles/Me.module.css";
+import { useSession } from "next-auth/client";
 
 const Me: React.FC = () => {
-  const [title, setTitle] = useState("");
+  const [session, loading] = useSession();
+
+  const [contactNumber, setContactNumber] = useState("");
   const [website, setWebsite] = useState("");
   const [about, setAbout] = useState("");
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // TODO
-    // You will implement this next ...
+    try {
+      const body = { contactNumber, website, about };
+      await fetch("/api/user", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <Layout>
       <main className={styles.main}>
-        <form onSubmit={submitData}>
-          <h1>Edit your profile</h1>
-          <input
-            autoFocus
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
-            type="text"
-            value={title}
-          />
-          <input
-            autoFocus
-            onChange={(e) => setWebsite(e.target.value)}
-            placeholder="Website"
-            type="text"
-            value={website}
-          />
-          <textarea
-            cols={50}
-            onChange={(e) => setAbout(e.target.value)}
-            placeholder="About you"
-            rows={4}
-            value={about}
-          />
-          <input
-            disabled={!about || !title}
-            type="submit"
-            value="Save changes"
-          />
-          <a className="back" href="#" onClick={() => Router.push("/")}>
-            Cancel
-          </a>
-        </form>
+        {session && (
+          <form onSubmit={submitData}>
+            <h1>Edit your profile</h1>
+            <input disabled type="text" value={session.user.email} />
+            <input
+              autoFocus
+              onChange={(e) => setContactNumber(e.target.value)}
+              placeholder="Contact number"
+              type="text"
+              value={contactNumber}
+            />
+            <input
+              onChange={(e) => setWebsite(e.target.value)}
+              placeholder="Website"
+              type="text"
+              value={website}
+            />
+            <textarea
+              cols={50}
+              onChange={(e) => setAbout(e.target.value)}
+              placeholder="About you"
+              rows={4}
+              value={about}
+            />
+            <input
+              // disabled={!about || !contactNumber}
+              type="submit"
+              value="Save changes"
+            />
+            <a className="back" href="#" onClick={() => Router.push("/")}>
+              Cancel
+            </a>
+          </form>
+        )}
       </main>
       <style jsx>{`
         .page {
