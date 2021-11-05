@@ -18,7 +18,7 @@ const options = {
   secret: process.env.SECRET,
   callbacks: {
     session: async (session, user) => {
-      session.userId = user.id;
+      session.user = user;
       return Promise.resolve(session);
     },
   },

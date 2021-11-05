@@ -1,66 +1,93 @@
-import React, { useState } from "react";
+import React from "react";
 import Layout from "../components/Layout";
 import Router from "next/router";
 import styles from "../styles/Me.module.css";
 import { useSession } from "next-auth/client";
+import { Formik, FormikHelpers, Form, Field } from "formik";
+import toast from "react-hot-toast";
+
+interface FormValues {
+  about: string;
+  website: string;
+  contactNumber: string;
+  github: string;
+  linkedin: string;
+}
 
 const Me: React.FC = () => {
   const [session, loading] = useSession();
 
-  const [contactNumber, setContactNumber] = useState("");
-  const [website, setWebsite] = useState("");
-  const [about, setAbout] = useState("");
+  const initialValues: FormValues = {
+    about: session ? session.user.about : "",
+    contactNumber: session ? session.user.contactNumber : "",
+    website: session ? session.user.website : "",
+    github: session ? session.user.github : "",
+    linkedin: session ? session.user.linkedin : "",
+  };
 
-  const submitData = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting }: FormikHelpers<FormValues>
+  ) => {
     try {
-      const body = { contactNumber, website, about };
       await fetch("/api/user", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify(values),
+      });
+      toast("Saved changes", {
+        icon: "👍",
       });
     } catch (error) {
+      toast.error("Failed to save changes");
+      setSubmitting(false);
       console.error(error);
     }
   };
 
+  console.log(session);
+
   return (
     <Layout>
       <main className={styles.main}>
+        <h1>Edit your profile</h1>
         {session && (
-          <form onSubmit={submitData}>
-            <h1>Edit your profile</h1>
-            <input disabled type="text" value={session.user.email} />
-            <input
-              autoFocus
-              onChange={(e) => setContactNumber(e.target.value)}
-              placeholder="Contact number"
-              type="text"
-              value={contactNumber}
-            />
-            <input
-              onChange={(e) => setWebsite(e.target.value)}
-              placeholder="Website"
-              type="text"
-              value={website}
-            />
-            <textarea
-              cols={50}
-              onChange={(e) => setAbout(e.target.value)}
-              placeholder="About you"
-              rows={4}
-              value={about}
-            />
-            <input
-              // disabled={!about || !contactNumber}
-              type="submit"
-              value="Save changes"
-            />
-            <a className="back" href="#" onClick={() => Router.push("/")}>
-              Cancel
-            </a>
-          </form>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            enableReinitialize
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <Field
+                  name="contactNumber"
+                  placeholder="Contact number"
+                  type="text"
+                />
+                <Field
+                  name="about"
+                  placeholder="About you"
+                  component="textarea"
+                  rows={4}
+                />
+
+                <h4>Links</h4>
+
+                <Field name="website" placeholder="Website" type="text" />
+                <Field name="github" placeholder="Github" type="text" />
+                <Field name="linkedin" placeholder="LinkedIn" type="text" />
+
+                <br />
+                <br />
+                <button type="submit" disabled={isSubmitting}>
+                  Save
+                </button>
+                <a className="back" href="#" onClick={() => Router.push("/")}>
+                  Cancel
+                </a>
+              </Form>
+            )}
+          </Formik>
         )}
       </main>
       <style jsx>{`
@@ -70,21 +97,6 @@ const Me: React.FC = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-
-        input[type="text"],
-        textarea {
-          width: 100%;
-          padding: 0.5rem;
-          margin: 0.5rem 0;
-          border-radius: 0.25rem;
-          border: 0.125rem solid rgba(0, 0, 0, 0.2);
-        }
-
-        input[type="submit"] {
-          background: #ececec;
-          border: 0;
-          padding: 1rem 2rem;
         }
 
         .back {
