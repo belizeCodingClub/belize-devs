@@ -13,9 +13,7 @@ const Header: React.FC = () => {
   let left = (
     <div className="left">
       <Link href="/" passHref>
-        <a className="home" data-active={isActive("/")}>
-          BelizeDevs
-        </a>
+        <a className="home">BelizeDevs</a>
       </Link>
       <style jsx>{`
         .bold {
@@ -26,10 +24,6 @@ const Header: React.FC = () => {
           text-decoration: none;
           color: var(--geist-foreground);
           display: inline-block;
-        }
-
-        .left a[data-active="true"] {
-          color: var(--geist-foreground);
         }
 
         a + a {
@@ -45,9 +39,7 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="/" passHref>
-          <a className="home" data-active={isActive("/")}>
-            BelizeDevs
-          </a>
+          <a className="home">BelizeDevs</a>
         </Link>
         <style jsx>{`
           .bold {
@@ -58,10 +50,6 @@ const Header: React.FC = () => {
             text-decoration: none;
             color: var(--geist-foreground);
             display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
           }
 
           a + a {
@@ -86,7 +74,6 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/api/auth/signin">
-          {/* <a data-active={isActive("/signup")}>Log in with GitHub</a> */}
           <a
             data-active={isActive("/signup")}
             href={`/api/auth/signin`}
@@ -127,9 +114,7 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
-            BelizeDevs
-          </a>
+          <a className="home">BelizeDevs</a>
         </Link>
 
         <style jsx>{`
@@ -158,7 +143,7 @@ const Header: React.FC = () => {
         <p>
           {session.user.name} ({session.user.email})
         </p>
-        <Link href="/create">
+        <Link href="/me" passHref>
           <button>
             <a>Edit profile</a>
           </button>

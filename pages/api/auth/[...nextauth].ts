@@ -16,4 +16,11 @@ const options = {
   ],
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
+  callbacks: {
+    session: async (session, user) => {
+      session.user = user;
+      return Promise.resolve(session);
+    },
+  },
+  theme: "light",
 };
