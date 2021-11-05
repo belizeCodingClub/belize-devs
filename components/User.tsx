@@ -1,10 +1,16 @@
 import Image from "next/image";
+import ProfilePic from "./ProfilePic";
 
 export type UserProps = {
   id: number;
   name: string;
   email: string;
   image?: string;
+  about?: string;
+  website?: string;
+  github?: string;
+  linkedin?: string;
+  contactNumber?: string;
 };
 
 const keyStr =
@@ -24,17 +30,7 @@ const rgbDataURL = (r, g, b) =>
 const User: React.FC<{ user: UserProps }> = ({ user }) => {
   return (
     <div className="profile">
-      {user.image && (
-        <Image
-          src={user.image}
-          width={120}
-          height={120}
-          alt={user.name}
-          placeholder="blur"
-          blurDataURL={rgbDataURL(164, 164, 164)}
-          className="avatar"
-        />
-      )}
+      {user.image && <ProfilePic image={user.image} />}
       <h3>{user.name}</h3>
       <small>{user.email}</small>
     </div>
