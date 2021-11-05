@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession, signIn } from "next-auth/client";
 import { GitHub } from "react-feather";
+import ReactCountryFlag from "react-country-flag";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -14,7 +15,18 @@ const Header: React.FC = () => {
   let left = (
     <div className="left">
       <Link href="/" passHref>
-        <a className="home">BelizeDevs</a>
+        <a className="siteName">
+          <ReactCountryFlag
+            countryCode="BZ"
+            svg
+            style={{
+              width: "1.4em",
+              height: "1.4em",
+              marginRight: 8,
+            }}
+          />{" "}
+          Software Developers
+        </a>
       </Link>
       <style jsx>{`
         .bold {
@@ -40,7 +52,18 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="/" passHref>
-          <a className="home">BelizeDevs</a>
+          <a className="siteName">
+            <ReactCountryFlag
+              countryCode="BZ"
+              svg
+              style={{
+                width: "1.4em",
+                height: "1.4em",
+                marginRight: 8,
+              }}
+            />{" "}
+            Software Developers
+          </a>
         </Link>
         <style jsx>{`
           .bold {
@@ -116,7 +139,18 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="/">
-          <a className="home">BelizeDevs</a>
+          <a className="siteName">
+            <ReactCountryFlag
+              countryCode="BZ"
+              svg
+              style={{
+                width: "1.4em",
+                height: "1.4em",
+                marginRight: 8,
+              }}
+            />{" "}
+            Software Developers
+          </a>
         </Link>
 
         <style jsx>{`
@@ -128,10 +162,6 @@ const Header: React.FC = () => {
             text-decoration: none;
             color: var(--geist-foreground);
             display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
           }
 
           a + a {

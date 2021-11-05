@@ -16,6 +16,11 @@ a {
   box-sizing: border-box;
 }
 
+.siteName {
+  display: flex !important;
+  align-items: center;
+}
+
 input[type="text"],
 textarea {
   width: 100%;
@@ -51,7 +56,7 @@ button[type="submit"] {
 }
 
 .access-denied a {
-  color: #0070f3;
+  color: #003f86;
 }
 
 .ReactModal__Content.ReactModal__Content--after-open {
