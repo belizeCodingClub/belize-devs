@@ -2,14 +2,7 @@ import type { GetStaticProps } from "next";
 import prisma from "../lib/prisma";
 import Head from "next/head";
 import Link from "next/link";
-import {
-  Mail,
-  Smartphone,
-  Link as RfLink,
-  GitHub,
-  Linkedin,
-  Phone,
-} from "react-feather";
+import { Mail, Link as RfLink, GitHub, Linkedin, Phone } from "react-feather";
 
 import styles from "../styles/Home.module.css";
 import User, { UserProps } from "../components/User";
