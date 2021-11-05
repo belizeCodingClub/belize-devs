@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession, signIn } from "next-auth/client";
+import { GitHub } from "react-feather";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -81,8 +82,9 @@ const Header: React.FC = () => {
               e.preventDefault();
               signIn();
             }}
+            style={{ display: "flex" }}
           >
-            Sign in with GitHub
+            <GitHub size={18} style={{ marginRight: 6 }} /> Sign in with GitHub
           </a>
         </Link>
         <style jsx>{`

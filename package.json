@@ -14,12 +14,15 @@
     "next-auth": "^3.29.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-feather": "^2.0.9",
     "react-hot-toast": "^2.1.1",
+    "react-modal": "^3.14.3",
     "superjson": "^1.8.0"
   },
   "devDependencies": {
     "@types/node": "16.11.6",
     "@types/react": "17.0.34",
+    "@types/react-modal": "^3.13.1",
     "babel-plugin-superjson-next": "^0.4.2",
     "eslint": "7",
     "eslint-config-next": "12.0.2",
