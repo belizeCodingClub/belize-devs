@@ -35,7 +35,6 @@ const Me: React.FC = () => {
     { setSubmitting }: FormikHelpers<FormValues>
   ) => {
     try {
-      console.log(values);
       await fetch("/api/user", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
