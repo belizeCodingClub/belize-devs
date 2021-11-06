@@ -14,7 +14,7 @@ const options: any = {
   ],
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
-  theme: "auto",
+  theme: "light",
   callbacks: {
     session: async (session, user) => {
       session.user = user;
