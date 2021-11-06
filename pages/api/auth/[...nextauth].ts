@@ -1,13 +1,11 @@
 import { NextApiHandler } from "next";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
 import prisma from "../../../lib/prisma";
 
-const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
-export default authHandler;
-
-const options = {
+//? using any here cause of issue with NextAuthOptions typing
+const options: any = {
   providers: [
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
@@ -16,11 +14,14 @@ const options = {
   ],
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
+  theme: "auto",
   callbacks: {
     session: async (session, user) => {
       session.user = user;
       return Promise.resolve(session);
     },
   },
-  theme: "light",
 };
+
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
+export default authHandler;
