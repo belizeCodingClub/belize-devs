@@ -19,7 +19,8 @@ export default async function handle(req, res) {
       nextId: users.length === limit ? users[limit - 1].id : undefined,
     });
   } else {
-    const { contactNumber, website, about, github, linkedin } = req.body;
+    const { contactNumber, website, about, github, linkedin, headline } =
+      req.body;
 
     const session = await getSession({ req });
 
@@ -31,6 +32,7 @@ export default async function handle(req, res) {
         about,
         github,
         linkedin,
+        headline,
       },
     });
     res.json(result);

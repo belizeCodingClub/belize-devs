@@ -12,6 +12,7 @@ declare module "next-auth" {
       contactNumber?: string;
       github?: string;
       linkedin?: string;
+      headline?: string;
     };
   }
 }

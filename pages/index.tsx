@@ -116,7 +116,14 @@ const Home = () => {
               </div>
             )}
 
-            <h3>{user.name}</h3>
+            <div>
+              <h3 style={{ margin: 0 }}>{user.name}</h3>
+              {user.headline && (
+                <p style={{ fontSize: 16, margin: 0, marginTop: 4 }}>
+                  {user.headline}
+                </p>
+              )}
+            </div>
           </div>
           <div className={styles.profileContent}>
             <p>{user.about}</p>
@@ -124,25 +131,25 @@ const Home = () => {
             <h4>Contact</h4>
             <div style={{ display: "flex", marginBottom: 12 }}>
               <Mail size={18} style={{ marginRight: 4 }} />
-              {user.email}
+              {user.email || "N/A"}
             </div>
             <div style={{ display: "flex" }}>
               <Phone size={18} style={{ marginRight: 4 }} />
-              {user.contactNumber}
+              {user.contactNumber || "N/A"}
             </div>
 
             <h4>Links</h4>
             <div style={{ display: "flex" }}>
               <RfLink size={18} style={{ marginRight: 4 }} />
-              {user.website}
+              {user.website || "N/A"}
             </div>
             <div style={{ display: "flex", margin: "12px 0" }}>
               <GitHub size={18} style={{ marginRight: 4 }} />
-              {user.github}
+              {user.github || "N/A"}
             </div>
             <div style={{ display: "flex" }}>
               <Linkedin size={18} style={{ marginRight: 4 }} />
-              {user.linkedin}
+              {user.linkedin || "N/A"}
             </div>
           </div>
         </Modal>
