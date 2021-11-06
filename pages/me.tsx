@@ -13,6 +13,7 @@ interface FormValues {
   contactNumber: string;
   github: string;
   linkedin: string;
+  headline: string;
 }
 
 const Me: React.FC = () => {
@@ -26,6 +27,7 @@ const Me: React.FC = () => {
     website: session ? session.user.website : "",
     github: session ? session.user.github : "",
     linkedin: session ? session.user.linkedin : "",
+    headline: session ? session.user.headline : "",
   };
 
   const handleSubmit = async (
@@ -33,6 +35,7 @@ const Me: React.FC = () => {
     { setSubmitting }: FormikHelpers<FormValues>
   ) => {
     try {
+      console.log(values);
       await fetch("/api/user", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -68,11 +71,21 @@ const Me: React.FC = () => {
           >
             {({ isSubmitting }) => (
               <Form>
+                <label htmlFor="headline">Headline</label>
+                <Field
+                  name="headline"
+                  placeholder="Frontend developer, Backend developer, etc"
+                  type="text"
+                />
+
+                <label htmlFor="contactNumber">Contact number</label>
                 <Field
                   name="contactNumber"
                   placeholder="Contact number"
                   type="text"
                 />
+
+                <label htmlFor="about">About you</label>
                 <Field
                   name="about"
                   placeholder="About you"
@@ -82,8 +95,13 @@ const Me: React.FC = () => {
 
                 <h4>Links</h4>
 
+                <label htmlFor="website">Website</label>
                 <Field name="website" placeholder="Website" type="text" />
+
+                <label htmlFor="github">GitHub</label>
                 <Field name="github" placeholder="Github" type="text" />
+
+                <label htmlFor="linkedin">LinkedIn</label>
                 <Field name="linkedin" placeholder="LinkedIn" type="text" />
 
                 <br />
